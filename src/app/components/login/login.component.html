@@ -1,0 +1,53 @@
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content flex-col rg:flex-row-reverse">
+    <div class="text-center rg:text-right">
+      <h1 class="text-5xl font-bold py-6">TaskMaster</h1>
+    </div>
+    <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100" style="width: 500px;">
+      <form class="card-body" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Email</span>
+          </label>
+          <input type="email" placeholder="email" class="input input-bordered" required formControlName="email"/>
+          @if(f['email'].errors &&( f['email'].touched||submitted)){
+            <div class="text-red-600">
+              @if(f['email'].errors['required']){
+              <small class="text-danger"> Email is required </small>
+              } @if(f['email'].errors['email']){
+              <small class="text-danger">
+                invalid E-mail, Please enter correctly
+              </small>
+              }
+            </div>
+            }
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input type="password" placeholder="password" class="input input-bordered" formControlName="password" />
+          @if(f['password'].errors &&( f['password'].touched||submitted)){
+            <div class="text-red-600">
+              @if(f['password'].errors['required']){
+              <small class="text-danger"> Password is required </small>
+              } @if(f['password'].errors['pattern']){
+              <small class="text-danger">
+                Password contain minimum 6 letters and combination of Alphabets
+                and numbers and a special character
+              </small>
+              }
+            </div>
+            }
+          <label class="label">
+            <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+          </label>
+        </div>
+        <div class="form-control mt-6">
+          <button class="btn btn-primary">Login</button>
+          <!-- {{loginForm.value | json}} -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
