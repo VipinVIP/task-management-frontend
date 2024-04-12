@@ -8,11 +8,13 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,HttpClientModule],
+  providers:[AuthenticationService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -52,15 +54,20 @@ import { AuthenticationService } from '../../services/authentication.service';
         this.authenticationService.userLogin({email,password})
         .subscribe(
           (data) => {
-            if (data.success) {
+            if (data.status="200") {
               localStorage.setItem('access_token', data.token);
-              localStorage.setItem('refresh_token', data.refreshToken);
-              this.router.navigate(['/messages']);
-              console.log("token",data.token);
+              // localStorage.setItem('refresh_token', data.refreshToken);
+              // this.router.navigate(['/messages']);
+              console.log("access_token",data.token);
+              console.log(data)
             }
           },
           ({ error }) => {
             this.common = error.message;
+            console.log(error.message);
+            setTimeout(() => {
+              this.common = '';
+            }, 2000);
           }
         );
       }
