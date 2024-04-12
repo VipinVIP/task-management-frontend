@@ -4,10 +4,17 @@
             <h1 class="text-5xl font-bold py-6">Welcome to TaskMaster</h1>
         </div>
         <div class="card shadow-2xl bg-base-100">
-            <div role="alert" class="alert alert-success" *ngIf="registered">
+            <div role="alert" class="alert alert-success" *ngIf="registered; else commonAlert">
                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span>You have successfully registered</span>
+                <span>You have successfully registered to the application</span>
               </div>
+              <ng-template #commonAlert>
+                <div role="alert" class="alert alert-error" *ngIf="common">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <span>{{common}}</span>
+                    </div>
+              </ng-template>
+
             <form class="card-body" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div class="flex flex-wrap -mx-4">
                     <div class="form-control w-full md:w-1/2 px-4">
@@ -54,13 +61,12 @@
                     <div>
                     <div class="text-red-600" *ngIf="f['confirmPassword'].errors && (f['confirmPassword'].touched || submitted)">
                       <small class="text-danger" *ngIf="f['confirmPassword'].errors['required']">Confirm Password</small>
-                      <small class="text-danger" *ngIf="f['confirmPassword'].errors['passwordMismatch']">Passwords do not match</small> 
                   </div>
                 </div>
                 </div>
                 <div class="form-control mt-6">
                     <button class="btn btn-primary">SignUp</button>
-                    <!-- {{loginForm.value | json}} -->
+                    <!-- {{signupForm.value | json}} -->
                 </div>
                 <label class="label" style="align-self: center;">
                   <a href="#" class="label-text-alt link link-hover" style="flex: 1;">Already have an account?Login</a>
@@ -70,4 +76,3 @@
         </div>
     </div>
   </div>
-  

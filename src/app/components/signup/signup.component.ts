@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,HttpClientModule],
+  providers:[AuthenticationService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -15,10 +18,11 @@ export class SignupComponent {
   submitted = false;
   common = '';
   registered = false;
+  wrongPassword=false;
 
   constructor(
     private fb: FormBuilder,
-    // private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) {
     this.signupForm = this.fb.group({
@@ -33,7 +37,7 @@ export class SignupComponent {
           ),
         ],
       ],
-      confirmPassword : ['',[Validators.required,this.passwordMatchValidator]]
+      confirmPassword : ['',[Validators.required]]
     });
   }
 
@@ -41,27 +45,47 @@ export class SignupComponent {
     return this.signupForm.controls;
   }
 
-  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      console.log("----------->>>>mismatch")
-      return { 'passwordMismatch': true };
-    }
-    return null;
-  }
 
   onSubmit() {
     this.submitted = true;
-    if (this.signupForm.invalid) {
-      return;
+    if (this.signupForm.valid) {
+
+      const { email, password, userName, confirmPassword } = this.signupForm.value;
+      console.log(email, password, userName,confirmPassword);
+      if(password === confirmPassword)
+      {
+          const username = userName;
+          this.authenticationService
+          .userSignUp({ email, password, username })
+          .subscribe(
+            (data) => {
+              if (data.status='200') {
+                console.log("Successss");
+                setTimeout(() => {
+                  this.router.navigate(['/login']);
+                }, 2000);
+                this.submitted = false;
+                this.registered=true;
+              }
+            },
+            ({ error }) => {
+              this.common = error.message;
+              console.log(this.common);
+                setTimeout(() => {
+                  this.common='';
+                }, 2000);
+                this.submitted = false;
+            }
+          );
+        }
+        else
+        {
+          this.common="Passwords do not match";
+          setTimeout(() => {
+            this.common='';
+          }, 2000);
+          this.submitted = false;
+        }
     }
-    else{
-      this.registered=true;
-      setTimeout(()=>{
-        this.registered=false;
-      },2000)
-    }
-    // Handle form submission
   }
 }

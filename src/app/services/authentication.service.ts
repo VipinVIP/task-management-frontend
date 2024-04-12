@@ -11,8 +11,8 @@ const baseUrl = 'http://localhost:3000/';
 export class AuthenticationService {
 
   constructor(private http:HttpClient) { }
-  userSignUp(user:{userName : string;email : string;password : string;}):  Observable<{token:string;success:boolean;refreshToken:string}>{
-    return this.http.post<{token:string;success:boolean;refreshToken:string}>(baseUrl+'signup/',user)
+  userSignUp(user:{username : string;email : string;password : string;}):  Observable<{token:string;auth:boolean;status:string}>{
+    return this.http.post<{token:string;auth:boolean;status:string}>(baseUrl+'signup/',user)
   }
     userLogin(user:{email : string;password : string}):  Observable<{token:string;auth:boolean;status:string}>{
       return this.http.post<{token:string;auth:boolean;status:string}>(baseUrl+'login/',user)
