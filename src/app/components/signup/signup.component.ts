@@ -14,6 +14,7 @@ export class SignupComponent {
   signupForm!: FormGroup;
   submitted = false;
   common = '';
+  registered = false;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +55,12 @@ export class SignupComponent {
     this.submitted = true;
     if (this.signupForm.invalid) {
       return;
+    }
+    else{
+      this.registered=true;
+      setTimeout(()=>{
+        this.registered=false;
+      },2000)
     }
     // Handle form submission
   }

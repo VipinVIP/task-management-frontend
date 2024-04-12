@@ -7,11 +7,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,HttpClientModule],
+  providers:[AuthenticationService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -20,10 +23,10 @@ import { Router, RouterLink } from '@angular/router';
     submitted = false;
     common = '';
     errorLogin = false;
-  
+
     constructor(
       private fb: FormBuilder,
-      // private authenticationService: AuthenticationService,
+      private authenticationService: AuthenticationService,
       private router: Router
     ) {
       this.loginForm = this.fb.group({
@@ -39,15 +42,34 @@ import { Router, RouterLink } from '@angular/router';
         ],
       });
     }
-  
+
     get f() {
       return this.loginForm.controls;
     }
 
     onSubmit() {
       this.submitted = true;
-      if (this.loginForm.invalid) {
-        return;
+      if (this.loginForm.valid) {
+        const {email,password} = this.loginForm.value;
+        this.authenticationService.userLogin({email,password})
+        .subscribe(
+          (data) => {
+            if (data.status="200") {
+              localStorage.setItem('access_token', data.token);
+              // localStorage.setItem('refresh_token', data.refreshToken);
+              // this.router.navigate(['/messages']);
+              console.log("access_token",data.token);
+              console.log(data)
+            }
+          },
+          ({ error }) => {
+            this.common = error.message;
+            console.log(error.message);
+            setTimeout(() => {
+              this.common = '';
+            }, 2000);
+          }
+        );
       }
       // Handle form submission
     }
