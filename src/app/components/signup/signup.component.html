@@ -4,6 +4,10 @@
             <h1 class="text-5xl font-bold py-6">Welcome to TaskMaster</h1>
         </div>
         <div class="card shadow-2xl bg-base-100">
+            <div role="alert" class="alert alert-success" *ngIf="registered">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>You have successfully registered</span>
+              </div>
             <form class="card-body" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div class="flex flex-wrap -mx-4">
                     <div class="form-control w-full md:w-1/2 px-4">

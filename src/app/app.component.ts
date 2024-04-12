@@ -1,13 +1,15 @@
+import { SignupComponent } from './components/signup/signup.component';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CalenderComponent } from './components/calender/calender.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,LoginComponent,NavbarComponent],
+  imports: [RouterOutlet,LoginComponent,NavbarComponent,SignupComponent,CalenderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
