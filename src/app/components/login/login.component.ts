@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +21,10 @@ import { Router, RouterLink } from '@angular/router';
     submitted = false;
     common = '';
     errorLogin = false;
-  
+
     constructor(
       private fb: FormBuilder,
-      // private authenticationService: AuthenticationService,
+      private authenticationService: AuthenticationService,
       private router: Router
     ) {
       this.loginForm = this.fb.group({
@@ -39,15 +40,29 @@ import { Router, RouterLink } from '@angular/router';
         ],
       });
     }
-  
+
     get f() {
       return this.loginForm.controls;
     }
 
     onSubmit() {
       this.submitted = true;
-      if (this.loginForm.invalid) {
-        return;
+      if (this.loginForm.valid) {
+        const {email,password} = this.loginForm.value;
+        this.authenticationService.userLogin({email,password})
+        .subscribe(
+          (data) => {
+            if (data.success) {
+              localStorage.setItem('access_token', data.token);
+              localStorage.setItem('refresh_token', data.refreshToken);
+              this.router.navigate(['/messages']);
+              console.log("token",data.token);
+            }
+          },
+          ({ error }) => {
+            this.common = error.message;
+          }
+        );
       }
       // Handle form submission
     }
