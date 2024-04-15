@@ -1,0 +1,38 @@
+<form [formGroup]="taskForm" class="space-y-4 max-w-1/2 my-4" (ngSubmit)="onSubmit()">
+  <div class="prose p-4 text-center">
+    <h1>Add task</h1>
+  </div>
+    <div class="form-control">
+      <label for="title" class="label">Title:</label>
+      <input id="title" type="text" formControlName="title" class="input input-bordered" placeholder="Enter title">
+      <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="text-red-500">Title is required</div>
+    </div>
+    <div class="form-control">
+      <label for="description" class="label">Description:</label>
+      <textarea id="description" formControlName="description" class="textarea textarea-bordered" placeholder="Enter description"></textarea>
+    </div>
+    <div class="form-control">
+      <label for="priority" class="label">Priority:</label>
+      <select id="priority" formControlName="priority" class="select select-bordered">
+        <option value="" disabled selected>Select Priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched" class="text-red-500">Priority is required</div>
+    </div>
+    <div class="form-control">
+      <label for="dueDate" class="label">Due Date:</label>
+      <input id="dueDate" type="date" formControlName="dueDate" class="input input-bordered">
+      <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched" class="text-red-500">Due Date is required</div>
+    </div>
+    @if(formAction=='update'){
+      <div class="form-control">
+        <label for="progress" class="label">Progress</label>
+        <input id="progress" type="number" min="0" max="100" formControlName="progress" class="input input-bordered">
+        <div *ngIf="taskForm.get('progress')?.invalid && taskForm.get('progress')?.touched" class="text-red-500">Due Date is required</div>
+      </div>
+    }
+    <button type="submit" class="btn btn-primary btn-block">Add Task</button>
+  </form>
+  
