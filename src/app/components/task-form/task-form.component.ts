@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,11 +16,13 @@ import { TaskService } from '../../services/task.service';
   templateUrl: './task-form.component.html',
 })
 export class TaskFormComponent {
+  @Input() formAction:string ='create'
   fb = inject(FormBuilder);
   taskService = inject(TaskService);
   taskForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
     description: [''],
+    progress:[0,[Validators.min(0),Validators.max(100)]],
     priority: ['', Validators.required],
     dueDate: ['', Validators.required],
   });

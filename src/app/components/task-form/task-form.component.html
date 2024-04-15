@@ -1,4 +1,7 @@
-<form [formGroup]="taskForm" class="space-y-4 max-w-1/2" (ngSubmit)="onSubmit()">
+<form [formGroup]="taskForm" class="space-y-4 max-w-1/2 my-4" (ngSubmit)="onSubmit()">
+  <div class="prose p-4 text-center">
+    <h1>Add task</h1>
+  </div>
     <div class="form-control">
       <label for="title" class="label">Title:</label>
       <input id="title" type="text" formControlName="title" class="input input-bordered" placeholder="Enter title">
@@ -23,6 +26,13 @@
       <input id="dueDate" type="date" formControlName="dueDate" class="input input-bordered">
       <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched" class="text-red-500">Due Date is required</div>
     </div>
-    <button type="submit" class="btn btn-primary">Add Task</button>
+    @if(formAction=='update'){
+      <div class="form-control">
+        <label for="progress" class="label">Progress</label>
+        <input id="progress" type="number" min="0" max="100" formControlName="progress" class="input input-bordered">
+        <div *ngIf="taskForm.get('progress')?.invalid && taskForm.get('progress')?.touched" class="text-red-500">Due Date is required</div>
+      </div>
+    }
+    <button type="submit" class="btn btn-primary btn-block">Add Task</button>
   </form>
   
