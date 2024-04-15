@@ -1,6 +1,7 @@
-<div class="card w-96 bg-base-100 shadow-xl m-3 mt-0">
-  <div class="card-body">
-    <div style="display: flex;">
+<div class="bg-base-200 h-full p-3">
+<div class="card w-96 bg-base-100 shadow-xl">
+  <div class="card-body pt-1.5 pb-1.5">
+    <div class="flex">
       <div class="lg:tooltip" data-tip="High Priority">
         <div class="badge badge-error badge-lg mt-1 mr-2"></div>
       </div>
@@ -8,29 +9,32 @@
   </div>
     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
     <br>
-    <div style="display: flex;">
-    <div class="card-actions" style="flex: 2;">
+    <div class="flex">
+    <div class="card-actions flex-[2]">
       <div>
 
       <!-- <button class="btn btn-primary">Due In</button> -->
       <!-- <div class="flex flex-col w-full lg:flex-row">
         <div class="grid flex-grow h-14 card bg-base-300 rounded-box place-items-center mb-2"><p style="font-size: 30px;">Due In : </p></div>
       </div> -->
-      <!-- <div style="justify-items: center; font-size: 30;">Due In</div> -->
+      <!-- <div class="flex w-full"> -->
+        <div class="grid h-30 card bg-base-300 rounded-box place-items-center p-3">
       <div class="grid grid-flow-col gap-5 text-center auto-cols-max">
+        <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content text-2xl">
+          <span class="font-mono text-3xl">
+            <span>Due</span>
+          </span>
+          In
+        </div>
         <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
           <span class="countdown font-mono text-5xl">
             <span style="--value:15;"></span>
           </span>
           days
         </div>
-        <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          <span class="countdown font-mono text-5xl">
-            <span style="--value:10;"></span>
-          </span>
-          hours
-        </div>
       </div>
+    </div>
+      <!-- </div> -->
 <!-- Success -->
 <!-- <span
   class="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
@@ -99,11 +103,12 @@
 
 </div>
     </div>
-    <div class="card-actions justify" style="flex: 1;">
-      <div class="radial-progress" style="--value:70; --size:6rem; --thickness: 0.8rem; color: #023754; background-color: rgb(179, 198, 215);" role="progressbar">70%</div>
+    <div class="card-actions justify mt-2 flex-1">
+      <div class="radial-progress" style="--value:70; --size:6rem; --thickness: 0.8rem; color: #023754;font-weight: 900; background-color: rgb(179, 198, 215);" role="progressbar">70%</div>
     </div>
   </div>
   </div>
+</div>
 
 
 <!-- <div class="stats shadow">
