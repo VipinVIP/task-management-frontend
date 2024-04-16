@@ -9,4 +9,5 @@ export const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'login',component:LoginComponent},
   {path:'add-task',component:TaskFormComponent}
+
 ];

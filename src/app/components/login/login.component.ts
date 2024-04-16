@@ -55,8 +55,7 @@ import { AuthenticationService } from '../../services/authentication.service';
           (data) => {
             if (data.status="200") {
               localStorage.setItem('access_token', data.token);
-              // localStorage.setItem('refresh_token', data.refreshToken);
-              // this.router.navigate(['/messages']);
+              this.router.navigate(['/dashboard']);
               console.log("access_token",data.token);
               console.log(data)
             }
@@ -70,6 +69,5 @@ import { AuthenticationService } from '../../services/authentication.service';
           }
         );
       }
-      // Handle form submission
     }
   }
