@@ -1,10 +1,5 @@
 @if (isLoggedIn()) {
-    <div class="flex flex-col items-center w-full px-2">
-        <div class="w-full max-w-md px-5 bg-base-200 rounded-lg my-10">
-            <app-dashboard-card></app-dashboard-card>
-        </div>
-    </div>
-}
-@else {
-    <app-login/>
+<app-dashboard-page></app-dashboard-page>
+} @else {
+<app-login />
 }

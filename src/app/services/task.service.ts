@@ -25,6 +25,6 @@ export class TaskService {
     return this.http.post<{token:string;auth:boolean;status:string}>('add-task/',task)
   }
 
-  getTask(token:string):Observable<Task[]>{
-    return this.http.get<Task[]>('/tasks'+ token)
+  getTasks(token:any):Observable<Task>{
+    return this.http.get<Task>('tasks/')
   }}

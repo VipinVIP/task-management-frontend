@@ -1,16 +1,20 @@
-<div class="card w-96 bg-base-100 shadow-xl">
-  <div class="card-body pt-1.5 pb-1.5">
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body pt-1.5 pb-1.5 min-h-72">
     <div class="flex">
-      <div class="lg:tooltip" data-tip="High Priority">
-        <div class="badge badge-error badge-lg mt-1 mr-2"></div>
+      <div class="lg:tooltip" [attr.data-tip]="inputData?.priority">
+        <div class="badge badge-lg mt-1.5 mr-2" [ngClass]="{
+          'badge-error': inputData?.priority === 'High',
+          'badge-warning': inputData?.priority === 'Medium',
+          'badge-success': inputData?.priority === 'Low'
+        }"></div>
       </div>
-    <div style="flex: 2;"><h2 class="card-title">Login Component - angular</h2></div>
+    <div class="flex-2 mt-1"><h2 class="card-title">{{inputData?.title}}</h2></div>
     </div>
-    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-    <br>
+    <p class="text-lg">{{inputData?.description}}</p>
+    <!-- <br> -->
     <div class="flex">
       <div class="card-actions flex-[2]">
-        <div>
+        <div class="pt-0">
           <div class="grid h-30 card bg-base-300 rounded-box place-items-center p-3">
             <div class="grid grid-flow-col gap-5 text-center auto-cols-max">
               <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content text-2xl">
@@ -21,7 +25,7 @@
               </div>
           <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
             <span class="countdown font-mono text-5xl">
-              <span style="--value:15;"></span>
+              <span [style.--value]=daysRemaining></span>
             </span>
             days
           </div>
@@ -29,8 +33,13 @@
           </div>
       <span
         class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700 mt-3"
+        [ngClass]="{
+          'bg-red-100 text-red-700': inputData?.progress === 0,
+          'bg-emerald-100 text-emerald-700': inputData?.progress === 100,
+        }"
       >
-  <svg
+      <ng-container *ngIf="inputData?.progress !== 0 || 100">
+        <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
@@ -44,13 +53,46 @@
       d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z"
     />
   </svg>
+      </ng-container>
+  <ng-container *ngIf="inputData?.progress === 100">
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="-ms-1 me-1.5 h-4 w-4"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  </ng-container>
+  <ng-container *ngIf="inputData?.progress === 0">
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="-ms-1 me-1.5 h-4 w-4"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+    />
+  </svg>
+  </ng-container>
 
-  <p class="whitespace-nowrap text-md">In Progress</p>
+  <p class="whitespace-nowrap text-md"> {{ inputData?.progress === 100 ? 'Done' : (inputData?.progress === 0 ? 'Not Started' : 'In Progress') }}</p>
 </span>
         </div>
       </div>
       <div class="card-actions justify mt-2 flex-1">
-        <div class="radial-progress" style="--value:70; --size:6rem; --thickness: 0.8rem; color: #023754;font-weight: 900; background-color: rgb(179, 198, 215);" role="progressbar">70%</div>
+        <div class="radial-progress" [style.--value]=inputData?.progress style="--size:6rem; --thickness: 0.8rem; color: #023754;font-weight: 900; background-color: rgb(179, 198, 215);" role="progressbar">{{inputData?.progress}}%</div>
       </div>
     </div>
   </div>
