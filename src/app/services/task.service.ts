@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-
 export interface Task {
   id: number;
   title: string;
@@ -16,8 +15,6 @@ export interface Task {
 @Injectable({
   providedIn: 'root',
 })
-
-
 export class TaskService {
   constructor(private http: HttpClient) {}
   addTask(task: {
@@ -28,8 +25,8 @@ export class TaskService {
   }): Observable<any> {
     return this.http.post<any>('add-task/', task);
   }
-  getTasks(token:any):Observable<Task>{
-    return this.http.get<Task>('tasks/')
+  getTasks(token: any): Observable<Task> {
+    return this.http.get<Task>('tasks/');
   }
 
   updateTask(
@@ -42,7 +39,7 @@ export class TaskService {
       progress: string;
     }
   ): Observable<any> {
-    return this.http.post<any>(`tasks/${id}`, task);
+    return this.http.put<any>(`tasks/${id}`, task);
   }
 
   deleteTask(id: string) {

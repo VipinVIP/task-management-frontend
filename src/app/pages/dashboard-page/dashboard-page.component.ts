@@ -26,6 +26,11 @@ const token = localStorage.getItem('access_token');
   imports: [CommonModule, DashboardCardComponent, TaskFormComponent],
 })
 export class DashboardPageComponent implements OnInit {
+  dataToEdit: Task | null = null;
+  showUpdateForm(taskData: any) {
+    console.log(taskData);
+    this.dataToEdit = taskData;
+  }
   tasks: Task[] = [];
   taskId: string = '';
   showModal: boolean = false;
@@ -47,10 +52,12 @@ export class DashboardPageComponent implements OnInit {
 
   actionSuccess = false;
   actionFailure = false;
+  actionMessage = '';
   onStatusChange(status: FormSubmissionResponse) {
-    console.log('from child to parent', status);
+    this.actionMessage = status.message;
     if (status.status == 'success') {
       this.actionSuccess = true;
+      this.ngOnInit();
       setTimeout(() => {
         this.actionSuccess = false;
       }, 3000);

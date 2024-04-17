@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 
 interface Task {
@@ -21,9 +21,10 @@ interface Task {
 })
 export class DashboardCardComponent implements OnInit {
   @Input() inputData: Task | null = null;
-  @Output() outputData: EventEmitter<string | null> = new EventEmitter<
+  @Output() outputDataClick: EventEmitter<string | null> = new EventEmitter<
     string | null
   >();
+  @Output() outputData = new EventEmitter();
   @Output() showModal: EventEmitter<void> = new EventEmitter<void>();
   currentDate = new Date();
   due: Date | undefined;
@@ -59,7 +60,11 @@ export class DashboardCardComponent implements OnInit {
   openModal() {
     this.showModal.emit();
     if (this.inputData) {
-      this.outputData.emit(this.inputData.id.toString());
+      this.outputDataClick.emit(this.inputData.id.toString());
     }
+  }
+
+  showUpdatePopup() {
+    this.outputData.emit(this.inputData);
   }
 }

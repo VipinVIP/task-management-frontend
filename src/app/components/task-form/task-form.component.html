@@ -1,6 +1,11 @@
 <form [formGroup]="taskForm" class="space-y-4 max-w-1/2 my-3" (ngSubmit)="onSubmit()">
   <div class="prose p-2 text-center">
+    @if(taskData==null){
     <h1>Add task</h1>
+    }@else {
+    <h1>Update task</h1>
+    }
+
   </div>
   <div class="form-control">
     <label for="title" class="label">Title:</label>
@@ -39,7 +44,7 @@
         greater than current day</div>
     </div>
   </div>
-  @if(formAction=='update'){
+  @if(taskData!==null){
   <div class="form-control">
     <label for="progress" class="label">Progress</label>
     <input id="progress" type="number" min="0" max="100" formControlName="progress" class="input input-bordered">
@@ -48,7 +53,12 @@
   </div>
   }
   @if(taskForm.valid){
+  @if(taskData==null){
   <button type="submit" class="btn btn-primary btn-block" onclick="add_task_modal.close()">Add Task</button>
+
+  }@else {
+  <button type="submit" class="btn btn-primary btn-block" onclick="update_task_modal.close()">Update Task</button>
+  }
   }@else {
   <button type="submit" class="btn btn-primary btn-block">Add Task</button>
   }
