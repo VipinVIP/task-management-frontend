@@ -1,5 +1,5 @@
 <div class="card bg-base-100 shadow-xl">
-  <div class="card-body pt-1.5 pb-1.5 min-h-72">
+  <div class="card-body p-4 min-h-80 max-h-80">
     <div class="flex">
       <div class="lg:tooltip" [attr.data-tip]="inputData?.priority">
         <div
@@ -15,10 +15,12 @@
         <h2 class="card-title">{{ inputData?.title }}</h2>
       </div>
     </div>
-    <p class="text-lg">{{ inputData?.description }}</p>
+    <div class="text-lg min-h-16 max-h-16">
+      <p>{{ inputData?.description }}</p>
+    </div>
     <!-- <br> -->
     <div class="flex">
-      <div class="card-actions flex-[2]">
+      <div class="card-actions flex-[1.5]">
         <div class="pt-0">
           <div
             class="grid h-30 card bg-base-300 rounded-box place-items-center p-3"
@@ -43,13 +45,15 @@
             </div>
           </div>
           <span
-            class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700 mt-3"
+            class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-900 mt-5"
             [ngClass]="{
-          'bg-red-100 text-red-700': inputData?.progress === 0,
-          'bg-emerald-100 text-emerald-700': inputData?.progress === 100,
+          'bg-red-100 text-red-900': inputData?.progress === 0,
+          'bg-emerald-100 text-emerald-900': inputData?.progress === 100,
         }"
           >
-            <ng-container *ngIf="inputData?.progress !== 0 && 100">
+            <ng-container
+              *ngIf="inputData?.progress !== 0 && inputData?.progress !== 100"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -110,7 +114,8 @@
           </span>
         </div>
       </div>
-      <div class="card-actions justify mt-2 flex-1">
+      <div class="card-actions flex-1 order-1">
+        <!-- <div> -->
         <div
           class="radial-progress"
           [style.--value]="inputData?.progress"
@@ -119,13 +124,123 @@
             --thickness: 0.8rem;
             color: #023754;
             font-weight: 900;
+            font-size: x-large;
             background-color: rgb(179, 198, 215);
           "
           role="progressbar"
         >
           {{ inputData?.progress }}%
         </div>
+        <div class="flex items-end justify-end pl-20">
+          <a
+            class="inline-block rounded-full border border-indigo-600 p-1.5 mr-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 dark:{bg-indigo-500}"
+            href="#"
+          >
+            <span class="sr-only"> Edit </span>
+
+            <svg
+              class="size-5 rtl:rotate-180"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                id="Layer_1"
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#000000"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: none;
+                        stroke: #020202;
+                        stroke-miterlimit: 10;
+                        stroke-width: 1.91px;
+                      }
+                    </style>
+                  </defs>
+                  <polyline
+                    class="cls-1"
+                    points="20.59 12 20.59 22.5 1.5 22.5 1.5 3.41 12.96 3.41"
+                  ></polyline>
+                  <path
+                    class="cls-1"
+                    d="M12,15.82l-4.77.95L8.18,12l9.71-9.71A2.69,2.69,0,0,1,19.8,1.5h0a2.7,2.7,0,0,1,2.7,2.7h0a2.69,2.69,0,0,1-.79,1.91Z"
+                  ></path>
+                </g>
+              </svg>
+            </svg>
+          </a>
+          <a
+            class="inline-block rounded-full border border-indigo-600 p-1.5 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
+            onclick="showModal()"
+          >
+            <span class="sr-only"> Delete </span>
+
+            <svg
+              class="size-5 rtl:rotate-180"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M15 16L17.5 18.5M20 21L17.5 18.5M17.5 18.5L20 16M17.5 18.5L15 21"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </svg>
+            </svg>
+          </a>
+        </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>
 </div>
+
+<dialog id="my_modal_1" class="modal">
+  <div class="modal-box">
+    <h2 class="font-bold text-lg">Delete Confirmation</h2>
+    <p class="py-4">Are you sure you want to delete the item?</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-error mr-3">Delete</button>
+        <button class="btn btn-neutral">Cancel</button>
+      </form>
+    </div>
+  </div>
+</dialog>
