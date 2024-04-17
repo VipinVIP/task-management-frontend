@@ -57,6 +57,20 @@ export class TaskFormComponent {
           },
         });
       } else {
+        this.taskService.updateTask(this.taskData.id, task).subscribe({
+          next: (resp) => {
+            console.log(resp);
+            this.taskForm.reset();
+            this.status.emit({
+              status: 'success',
+              message: 'Task Updated successfully',
+            });
+          },
+          error: (error) => {
+            console.error(error);
+            this.status.emit({ status: 'failure', message: error });
+          },
+        });
       }
       console.log(task);
     } else {

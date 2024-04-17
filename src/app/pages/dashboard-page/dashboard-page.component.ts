@@ -49,10 +49,12 @@ export class DashboardPageComponent implements OnInit {
 
   actionSuccess = false;
   actionFailure = false;
+  actionMessage = '';
   onStatusChange(status: FormSubmissionResponse) {
-    console.log('from child to parent', status);
+    this.actionMessage = status.message;
     if (status.status == 'success') {
       this.actionSuccess = true;
+      this.ngOnInit();
       setTimeout(() => {
         this.actionSuccess = false;
       }, 3000);
