@@ -22,6 +22,15 @@
   </div>
 </dialog>
 
+<dialog id="update_task_modal" class="modal p-0">
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+  <div class="modal-box py-1">
+    <app-task-form (status)="onStatusChange($event)" [taskData]="dataToEdit" />
+  </div>
+</dialog>
+
 @if(actionSuccess){
 <div class="bg-success w-full m-3 max-w-xs fixed bottom-2 right-2 rounded fade-in-right-fade-out-right">
   <div class="alert alert-success py-3" role="alert">
