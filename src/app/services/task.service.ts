@@ -14,17 +14,38 @@ export interface Task {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 
 export class TaskService {
-
-  constructor(private http:HttpClient) { }
-  addTask(task:{title : string;description : string;priority : string;dueDate:string}):  Observable<{token:string;auth:boolean;status:string}>{
-    return this.http.post<{token:string;auth:boolean;status:string}>('add-task/',task)
+  constructor(private http: HttpClient) {}
+  addTask(task: {
+    title: string;
+    description: string;
+    priority: string;
+    dueDate: string;
+  }): Observable<any> {
+    return this.http.post<any>('add-task/', task);
   }
-
   getTasks(token:any):Observable<Task>{
     return this.http.get<Task>('tasks/')
-  }}
+  }
+
+  updateTask(
+    id: number,
+    task: {
+      title: string;
+      description: string;
+      priority: string;
+      dueDate: string;
+      progress: string;
+    }
+  ): Observable<any> {
+    return this.http.post<any>(`tasks/${id}`, task);
+  }
+
+  deleteTask(id: string) {
+    return this.http.patch<any>(`tasks/${id}`, {});
+  }
+}

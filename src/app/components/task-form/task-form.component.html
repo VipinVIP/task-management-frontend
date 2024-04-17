@@ -5,7 +5,11 @@
   <div class="form-control">
     <label for="title" class="label">Title:</label>
     <input id="title" type="text" formControlName="title" class="input input-bordered" placeholder="Enter title">
-    <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="text-red-500">Title is required
+    <div *ngIf="taskForm.get('title')?.errors?.['required'] && taskForm.get('title')?.touched" class="text-red-500">
+      Title is required
+    </div>
+    <div *ngIf="taskForm.get('title')?.errors?.['minlength'] && taskForm.get('title')?.touched" class="text-red-500">
+      Title should be atleast 5 characters
     </div>
   </div>
   <div class="form-control">
@@ -28,18 +32,19 @@
     <div class="form-control w-1/2">
       <label for="dueDate" class="label">Due Date:</label>
       <input id="dueDate" type="date" formControlName="dueDate" class="input input-bordered">
-      <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched" class="text-red-500">Due Date is
+      <div *ngIf="taskForm.get('dueDate')?.errors?.['required'] && taskForm.get('dueDate')?.touched"
+        class="text-red-500">Due Date is
         required</div>
+      <div *ngIf="taskForm.get('dueDate')?.errors?.['dateNotLessThanCurrent']" class="text-red-500">Due Date should be
+        greater than current day</div>
     </div>
   </div>
-
   @if(formAction=='update'){
   <div class="form-control">
     <label for="progress" class="label">Progress</label>
     <input id="progress" type="number" min="0" max="100" formControlName="progress" class="input input-bordered">
-    <div *ngIf="taskForm.get('progress')?.invalid && taskForm.get('progress')?.touched" class="text-red-500 text-xs">Due
-      Date is
-      required</div>
+    <div *ngIf="taskForm.get('progress')?.invalid && taskForm.get('progress')?.touched" class="text-red-500 text-xs">
+      Progress is required</div>
   </div>
   }
   @if(taskForm.valid){

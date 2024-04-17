@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { FormSubmissionResponse } from '../../types';
+import { dateNotLessThanCurrent } from '../../validators/dateValidators';
 
 @Component({
   selector: 'app-task-form',
@@ -17,16 +18,16 @@ import { FormSubmissionResponse } from '../../types';
   templateUrl: './task-form.component.html',
 })
 export class TaskFormComponent {
-  @Input() formAction:string ='create'
+  @Input() formAction: string = 'create';
   @Output() status = new EventEmitter<FormSubmissionResponse>();
   fb = inject(FormBuilder);
   taskService = inject(TaskService);
   taskForm: FormGroup = this.fb.group({
-    title: ['', Validators.required],
+    title: ['', [Validators.required, Validators.minLength(5)]],
     description: [''],
-    progress:[0,[Validators.min(0),Validators.max(100)]],
+    progress: [0, [Validators.min(0), Validators.max(100)]],
     priority: ['', Validators.required],
-    dueDate: ['', Validators.required],
+    dueDate: ['', [Validators.required, dateNotLessThanCurrent()]],
   });
   get f() {
     return this.taskForm.controls;
@@ -38,11 +39,14 @@ export class TaskFormComponent {
         next: (resp) => {
           console.log(resp);
           this.taskForm.reset();
-          this.status.emit({status:"success",message:"Task Addes successfully"}); 
+          this.status.emit({
+            status: 'success',
+            message: 'Task Addes successfully',
+          });
         },
         error: (error) => {
           console.error(error);
-          this.status.emit({status:"failure",message:error}); 
+          this.status.emit({ status: 'failure', message: error });
         },
       });
       console.log(task);
