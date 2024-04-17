@@ -34,6 +34,7 @@ export class DashboardPageComponent implements OnInit {
   tasks: Task[] = [];
   taskId: string = '';
   showModal: boolean = false;
+  showAlert: boolean = false;
 
   constructor(private taskService: TaskService) {}
   ngOnInit(): void {
@@ -95,6 +96,10 @@ export class DashboardPageComponent implements OnInit {
         });
         this.tasks = data;
         this.showModal = false;
+        this.showAlert = true;
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 2000); // 3000 milliseconds (3 seconds)
       });
     }
   }
