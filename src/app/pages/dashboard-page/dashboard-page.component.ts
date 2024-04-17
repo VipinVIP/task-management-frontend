@@ -32,6 +32,9 @@ export class DashboardPageComponent implements OnInit {
     this.dataToEdit = taskData;
   }
   tasks: Task[] = [];
+  taskId: string = '';
+  showModal: boolean = false;
+
   constructor(private taskService: TaskService) {}
   ngOnInit(): void {
     console.log('token', token);
@@ -64,6 +67,35 @@ export class DashboardPageComponent implements OnInit {
       setTimeout(() => {
         this.actionFailure = false;
       }, 3000);
+    }
+  }
+
+  openModal() {
+    this.showModal = true;
+    console.log(this.showModal);
+  }
+
+  closeModal() {
+    this.showModal = false;
+    console.log(this.showModal);
+  }
+
+  handleOutputData(id: string | null) {
+    if (id !== null) {
+      console.log('Task ID:', id);
+      this.taskId = id;
+    }
+  }
+
+  deleteCard(id: string | null) {
+    if (id !== null) {
+      this.taskService.deleteTask(id).subscribe((res) => {
+        const data = this.tasks.filter((item) => {
+          return item.id !== parseInt(this.taskId);
+        });
+        this.tasks = data;
+        this.showModal = false;
+      });
     }
   }
 }

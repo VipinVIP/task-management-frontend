@@ -21,7 +21,11 @@ interface Task {
 })
 export class DashboardCardComponent implements OnInit {
   @Input() inputData: Task | null = null;
+  @Output() outputDataClick: EventEmitter<string | null> = new EventEmitter<
+    string | null
+  >();
   @Output() outputData = new EventEmitter();
+  @Output() showModal: EventEmitter<void> = new EventEmitter<void>();
   currentDate = new Date();
   due: Date | undefined;
   differenceInMillis: number | undefined;
@@ -50,6 +54,13 @@ export class DashboardCardComponent implements OnInit {
           this.differenceInMillis / (1000 * 3600 * 24)
         );
       }
+    }
+  }
+
+  openModal() {
+    this.showModal.emit();
+    if (this.inputData) {
+      this.outputDataClick.emit(this.inputData.id.toString());
     }
   }
 
