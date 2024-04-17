@@ -1,4 +1,9 @@
 @if (isLoggedIn()) {
+
+    <div class="min-h-screen">
+        <!-- <div class="w-full max-w-md px-5 bg-base-200 rounded-lg my-10"> -->
+          <app-dashboard-page></app-dashboard-page>
+        <!-- </div> -->
 <button class="btn btn-lg btn-circle fixed bottom-5 right-5 bg-primary hover:opacity-60 hover:bg-primary"
     onclick="add_task_modal.showModal()">
     <span class="text-3xl text-white mt-[-5px]">+</span>
