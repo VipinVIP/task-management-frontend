@@ -1,20 +1,16 @@
 <div class="h-full bg-base-200 p-3">
   <h1 class="font-bold text-3xl w-full mb-5 font-sans">TASK OVERVIEW</h1>
-  <div
-    class="grid lg:grid-cols-3 gap-8 sm:grid-cols-1 md:grid-cols-2 sm:px-5 md:px-0"
-  >
+  <div class="grid lg:grid-cols-3 gap-8 sm:grid-cols-1 md:grid-cols-2 sm:px-5 md:px-0">
     <!-- <div class="col" *ngFor="let task of row"> -->
     <div *ngFor="let task of tasks">
-      <app-dashboard-card [inputData]="task"></app-dashboard-card>
+      <app-dashboard-card [inputData]="task" (outputData)="showUpdateForm($event)"></app-dashboard-card>
     </div>
     <!-- </div> -->
   </div>
 </div>
 
-<button
-  class="btn btn-lg btn-circle fixed bottom-5 right-5 bg-primary hover:opacity-60 hover:bg-primary"
-  onclick="add_task_modal.showModal()"
->
+<button class="btn btn-lg btn-circle fixed bottom-5 right-5 bg-primary hover:opacity-60 hover:bg-primary"
+  onclick="add_task_modal.showModal()">
   <span class="text-3xl text-white mt-[-5px]">+</span>
 </button>
 <dialog id="add_task_modal" class="modal p-0">
@@ -27,22 +23,11 @@
 </dialog>
 
 @if(actionSuccess){
-<div
-  class="bg-success w-full m-3 max-w-xs fixed bottom-2 right-2 rounded fade-in-right-fade-out-right"
->
+<div class="bg-success w-full m-3 max-w-xs fixed bottom-2 right-2 rounded fade-in-right-fade-out-right">
   <div class="alert alert-success py-3" role="alert">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="stroke-current shrink-0 h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
     Card saved successfully!!
   </div>
@@ -51,22 +36,11 @@
   </div>
 </div>
 } @if(actionFailure){
-<div
-  class="bg-error w-full m-3 max-w-xs fixed bottom-2 right-2 rounded fade-in-right-fade-out-right"
->
+<div class="bg-error w-full m-3 max-w-xs fixed bottom-2 right-2 rounded fade-in-right-fade-out-right">
   <div class="alert alert-error py-3" role="alert">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="stroke-current shrink-0 h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
     Failed to save card!!
   </div>

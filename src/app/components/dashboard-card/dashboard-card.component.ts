@@ -54,8 +54,6 @@ export class DashboardCardComponent implements OnInit {
   }
 
   showUpdatePopup() {
-    this.outputData.emit({
-      formData: this.inputData,
-    });
+    this.outputData.emit(this.inputData);
   }
 }
