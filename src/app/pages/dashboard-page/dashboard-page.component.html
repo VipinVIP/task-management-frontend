@@ -5,9 +5,12 @@
   >
     <!-- <div class="col" *ngFor="let task of row"> -->
     <div *ngFor="let task of tasks">
-      <app-dashboard-card [inputData]="task"></app-dashboard-card>
+      <app-dashboard-card
+        [inputData]="task"
+        (showModal)="openModal()"
+        (outputData)="handleOutputData($event)"
+      ></app-dashboard-card>
     </div>
-    <!-- </div> -->
   </div>
 </div>
 
@@ -72,6 +75,21 @@
   </div>
   <div class="bg-gray-500 opacity-40">
     <div class="bg-black h-[5px] animated-width" id="progress-bar"></div>
+  </div>
+</div>
+} @if(showModal){
+<div class="modal-container">
+  <div class="modal-box justify-center">
+    <h2 class="font-bold text-2xl">Delete Confirmation</h2>
+    <p class="py-4 text-lg">Are you sure you want to delete the item?</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-error mr-3" (click)="deleteCard(taskId)">
+          Delete
+        </button>
+        <button class="btn btn-neutral" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
   </div>
 </div>
 }

@@ -3,7 +3,7 @@ import { DashboardCardComponent } from '../../components/dashboard-card/dashboar
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { FormSubmissionResponse } from '../../types';
-import { TaskFormComponent } from "../../components/task-form/task-form.component";
+import { TaskFormComponent } from '../../components/task-form/task-form.component';
 
 interface Task {
   id: number;
@@ -18,27 +18,31 @@ interface Task {
 const token = localStorage.getItem('access_token');
 
 @Component({
-    selector: 'app-dashboard-page',
-    standalone: true,
-    providers: [TaskService],
-    templateUrl: './dashboard-page.component.html',
-    styleUrl: './dashboard-page.component.css',
-    imports: [CommonModule, DashboardCardComponent, TaskFormComponent]
+  selector: 'app-dashboard-page',
+  standalone: true,
+  providers: [TaskService],
+  templateUrl: './dashboard-page.component.html',
+  styleUrl: './dashboard-page.component.css',
+  imports: [CommonModule, DashboardCardComponent, TaskFormComponent],
 })
+export class DashboardPageComponent implements OnInit {
+  tasks: Task[] = [];
+  taskId: string = '';
+  showModal: boolean = false;
 
-export class DashboardPageComponent implements OnInit{
-  tasks : Task[]=[];
-
-  constructor(private taskService : TaskService) {}
+  constructor(private taskService: TaskService) {}
   ngOnInit(): void {
-    console.log('token',token)
-    this.taskService.getTasks(token).subscribe((data: any) =>{
-      this.tasks = data;
-      console.log(data);
-      console.log("asdfghjk",this.tasks);
-    },(error: any) =>{
-      console.log('Error fetching messages',error)
-    });
+    console.log('token', token);
+    this.taskService.getTasks(token).subscribe(
+      (data: any) => {
+        this.tasks = data;
+        console.log(data);
+        console.log('asdfghjk', this.tasks);
+      },
+      (error: any) => {
+        console.log('Error fetching messages', error);
+      }
+    );
   }
 
   actionSuccess = false;
@@ -59,5 +63,32 @@ export class DashboardPageComponent implements OnInit{
     }
   }
 
+  openModal() {
+    this.showModal = true;
+    console.log(this.showModal);
+  }
 
+  closeModal() {
+    this.showModal = false;
+    console.log(this.showModal);
+  }
+
+  handleOutputData(id: string | null) {
+    if (id !== null) {
+      console.log('Task ID:', id);
+      this.taskId = id;
+    }
+  }
+
+  deleteCard(id: string | null) {
+    if (id !== null) {
+      this.taskService.deleteTask(id).subscribe((res) => {
+        const data = this.tasks.filter((item) => {
+          return item.id !== parseInt(this.taskId);
+        });
+        this.tasks = data;
+        this.showModal = false;
+      });
+    }
+  }
 }

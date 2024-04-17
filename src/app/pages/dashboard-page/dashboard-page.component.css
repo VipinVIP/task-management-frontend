@@ -32,3 +32,16 @@
 .animated-width {
   animation: shrinkWidth 2.5s ease-in-out forwards;
 }
+
+.modal-container {
+  position: fixed; /* or absolute */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  z-index: 1000; /* adjust the z-index value as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
