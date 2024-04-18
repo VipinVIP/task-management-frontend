@@ -26,6 +26,12 @@ const token = localStorage.getItem('access_token');
   imports: [CommonModule, DashboardCardComponent, TaskFormComponent],
 })
 export class DashboardPageComponent implements OnInit {
+  searchItems() {
+    console.log('Search');
+  }
+  filterItems(progress: string) {
+    console.log('Filter', progress);
+  }
   dataToEdit: Task | null = null;
   showUpdateForm(taskData: any) {
     console.log(taskData);
