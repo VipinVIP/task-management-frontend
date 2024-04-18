@@ -20,7 +20,7 @@
   <div class="flex-none gap-2">
     <label class="swap swap-rotate">
       <!-- this hidden checkbox controls the state -->
-      <input type="checkbox" (click)="toggleTheme()"/>
+      <input type="checkbox" (click)="toggleTheme()" />
 
       <!-- sun icon -->
       <svg
@@ -45,7 +45,7 @@
       </svg>
     </label>
     <label class="input input-sm input-bordered flex items-center gap-2">
-      <input type="text" class="grow" placeholder="Search" />
+      <input type="text" class="grow" placeholder="Search Tasks" />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -78,7 +78,7 @@
             <span class="badge">New</span>
           </a>
         </li>
-        <li><a (click)="toggleTheme()" >Settings</a></li>
+        <li><a (click)="toggleTheme()">Settings</a></li>
         <li><a>Logout</a></li>
       </ul>
     </div>
