@@ -1,5 +1,8 @@
-.truncate {
-  white-space: nowrap;
+.truncate-a {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 3.5rem !important;
 }

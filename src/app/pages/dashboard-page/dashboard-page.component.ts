@@ -82,6 +82,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   handleOutputData(id: string | null) {
+    this.openModal();
     if (id !== null) {
       console.log('Task ID:', id);
       this.taskId = id;
@@ -99,7 +100,7 @@ export class DashboardPageComponent implements OnInit {
         this.showAlert = true;
         setTimeout(() => {
           this.showAlert = false;
-        }, 2000); // 3000 milliseconds (3 seconds)
+        }, 2000);
       });
     }
   }

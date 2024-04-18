@@ -21,15 +21,15 @@ interface Task {
 })
 export class DashboardCardComponent implements OnInit {
   @Input() inputData: Task | null = null;
-  @Output() outputDataClick: EventEmitter<string | null> = new EventEmitter<
+  @Output() outputDataId: EventEmitter<string | null> = new EventEmitter<
     string | null
   >();
   @Output() outputData = new EventEmitter();
-  @Output() showModal: EventEmitter<void> = new EventEmitter<void>();
   currentDate = new Date();
   due: Date | undefined;
   differenceInMillis: number | undefined;
   daysRemaining: number | undefined;
+  isdarkMode: boolean = false;
 
   ngOnInit() {
     if (this.inputData) {
@@ -57,14 +57,29 @@ export class DashboardCardComponent implements OnInit {
     }
   }
 
+  truncateTextWithEllipsis(text: any): string {
+    console.log('truncate');
+    if (text.length <= 70) {
+      console.log(text.length);
+      return text;
+    } else {
+      const truncatedText = text.substring(0, 70).trim();
+      return truncatedText + '...';
+    }
+  }
+
   openModal() {
-    this.showModal.emit();
+    // this.showModal.emit();
     if (this.inputData) {
-      this.outputDataClick.emit(this.inputData.id.toString());
+      this.outputDataId.emit(this.inputData.id.toString());
     }
   }
 
   showUpdatePopup() {
     this.outputData.emit(this.inputData);
+  }
+
+  change() {
+    this.isdarkMode = true;
   }
 }

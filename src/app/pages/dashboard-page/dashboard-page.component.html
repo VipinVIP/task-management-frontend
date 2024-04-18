@@ -8,8 +8,7 @@
       <app-dashboard-card
         [inputData]="task"
         (outputData)="showUpdateForm($event)"
-        (showModal)="openModal()"
-        (outputDataClick)="handleOutputData($event)"
+        (outputDataId)="handleOutputData($event)"
       ></app-dashboard-card>
     </div>
   </div>
