@@ -29,6 +29,7 @@ export class DashboardCardComponent implements OnInit {
   due: Date | undefined;
   differenceInMillis: number | undefined;
   daysRemaining: number | undefined;
+  isdarkMode: boolean = false;
 
   ngOnInit() {
     if (this.inputData) {
@@ -76,5 +77,9 @@ export class DashboardCardComponent implements OnInit {
 
   showUpdatePopup() {
     this.outputData.emit(this.inputData);
+  }
+
+  change() {
+    this.isdarkMode = true;
   }
 }
