@@ -30,9 +30,9 @@ export class DashboardPageComponent implements OnInit {
   originalTasks: Task[] = [];
   searchItems(searchTerm: string) {
     if (!searchTerm) {
-      this.tasks = [...this.originalTasks];
+      this.originalTasks = [...this.filteredTasks];
     } else {
-      this.tasks = this.originalTasks.filter((task) =>
+      this.originalTasks = this.filteredTasks.filter((task) =>
         task.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
@@ -55,6 +55,7 @@ export class DashboardPageComponent implements OnInit {
         this.filteredTasks = this.tasks.filter((task) => task.progress === 100);
         break;
     }
+    this.searchItems('');
   }
   dataToEdit: Task | null = null;
   showUpdateForm(taskData: any) {
@@ -74,7 +75,7 @@ export class DashboardPageComponent implements OnInit {
     this.taskService.getTasks(token).subscribe(
       (data: any) => {
         this.tasks = data;
-        this.originalTasks = [...data];
+        this.originalTasks = data;
         this.filteredTasks = data;
       },
       (error: any) => {
