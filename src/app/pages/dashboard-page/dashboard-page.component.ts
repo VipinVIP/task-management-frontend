@@ -30,16 +30,32 @@ export class DashboardPageComponent implements OnInit {
   originalTasks: Task[] = [];
   searchItems(searchTerm: string) {
     if (!searchTerm) {
-      this.tasks = [...this.originalTasks];
+      this.originalTasks = [...this.filteredTasks];
     } else {
-      this.tasks = this.originalTasks.filter((task) =>
+      this.originalTasks = this.filteredTasks.filter((task) =>
         task.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
   }
 
   filterItems(progress: string) {
-    console.log('Filter', progress);
+    switch (progress) {
+      case 'all':
+        this.filteredTasks = this.tasks;
+        break;
+      case 'not-started':
+        this.filteredTasks = this.tasks.filter((task) => task.progress === 0);
+        break;
+      case 'in-progress':
+        this.filteredTasks = this.tasks.filter(
+          (task) => task.progress > 0 && task.progress < 100
+        );
+        break;
+      case 'done':
+        this.filteredTasks = this.tasks.filter((task) => task.progress === 100);
+        break;
+    }
+    this.searchItems('');
   }
   dataToEdit: Task | null = null;
   showUpdateForm(taskData: any) {
@@ -47,6 +63,7 @@ export class DashboardPageComponent implements OnInit {
     this.dataToEdit = taskData;
   }
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
   taskId: string = '';
   showModal: boolean = false;
   showAlert: boolean = false;
@@ -58,9 +75,8 @@ export class DashboardPageComponent implements OnInit {
     this.taskService.getTasks(token).subscribe(
       (data: any) => {
         this.tasks = data;
-        this.originalTasks = [...data];
-        console.log(data);
-        console.log('asdfghjk', this.tasks);
+        this.originalTasks = data;
+        this.filteredTasks = data;
       },
       (error: any) => {
         console.log('Error fetching messages', error);
