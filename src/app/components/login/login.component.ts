@@ -15,7 +15,6 @@ import { AuthenticationService } from '../../services/authentication.service';
   imports: [ReactiveFormsModule, CommonModule],
   providers: [AuthenticationService],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   loginForm!: FormGroup;

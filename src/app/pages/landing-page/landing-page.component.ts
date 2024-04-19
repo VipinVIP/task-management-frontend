@@ -8,9 +8,8 @@ import { FormSubmissionResponse } from '../../types';
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule,LoginComponent,DashboardPageComponent],
+  imports: [CommonModule, LoginComponent, DashboardPageComponent],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
   isLoggedIn() {

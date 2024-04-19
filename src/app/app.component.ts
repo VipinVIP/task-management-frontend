@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
     NavbarComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {
   isLoggedIn() {
