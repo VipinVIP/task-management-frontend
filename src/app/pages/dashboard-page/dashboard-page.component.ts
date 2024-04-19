@@ -30,7 +30,22 @@ export class DashboardPageComponent implements OnInit {
     console.log('Search');
   }
   filterItems(progress: string) {
-    console.log('Filter', progress);
+    switch (progress) {
+      case 'all':
+        this.filteredTasks = this.tasks;
+        break;
+      case 'not-started':
+        this.filteredTasks = this.tasks.filter((task) => task.progress === 0);
+        break;
+      case 'in-progress':
+        this.filteredTasks = this.tasks.filter(
+          (task) => task.progress > 0 && task.progress < 100
+        );
+        break;
+      case 'done':
+        this.filteredTasks = this.tasks.filter((task) => task.progress === 100);
+        break;
+    }
   }
   dataToEdit: Task | null = null;
   showUpdateForm(taskData: any) {
@@ -38,6 +53,7 @@ export class DashboardPageComponent implements OnInit {
     this.dataToEdit = taskData;
   }
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
   taskId: string = '';
   showModal: boolean = false;
   showAlert: boolean = false;
@@ -48,8 +64,7 @@ export class DashboardPageComponent implements OnInit {
     this.taskService.getTasks(token).subscribe(
       (data: any) => {
         this.tasks = data;
-        console.log(data);
-        console.log('asdfghjk', this.tasks);
+        this.filteredTasks = data;
       },
       (error: any) => {
         console.log('Error fetching messages', error);
