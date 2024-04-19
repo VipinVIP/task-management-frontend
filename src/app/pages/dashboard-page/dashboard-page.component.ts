@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
@@ -26,9 +27,17 @@ const token = localStorage.getItem('access_token');
   imports: [CommonModule, DashboardCardComponent, TaskFormComponent],
 })
 export class DashboardPageComponent implements OnInit {
-  searchItems() {
-    console.log('Search');
+  originalTasks: Task[] = [];
+  searchItems(searchTerm: string) {
+    if (!searchTerm) {
+      this.tasks = [...this.originalTasks];
+    } else {
+      this.tasks = this.originalTasks.filter((task) =>
+        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
   }
+
   filterItems(progress: string) {
     switch (progress) {
       case 'all':
@@ -59,11 +68,13 @@ export class DashboardPageComponent implements OnInit {
   showAlert: boolean = false;
 
   constructor(private taskService: TaskService) {}
+
   ngOnInit(): void {
     console.log('token', token);
     this.taskService.getTasks(token).subscribe(
       (data: any) => {
         this.tasks = data;
+        this.originalTasks = [...data];
         this.filteredTasks = data;
       },
       (error: any) => {
