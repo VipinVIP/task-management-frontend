@@ -2,14 +2,11 @@
   <div class="card-body p-4 min-h-80 max-h-80">
     <div class="flex">
       <div class="lg:tooltip" [attr.data-tip]="inputData?.priority">
-        <div
-          class="badge badge-lg mt-1.5 mr-2"
-          [ngClass]="{
+        <div class="badge badge-lg mt-1.5 mr-2" [ngClass]="{
             'badge-error': inputData?.priority === 'High',
             'badge-warning': inputData?.priority === 'Medium',
             'badge-success': inputData?.priority === 'Low'
-          }"
-        ></div>
+          }"></div>
       </div>
       <div class="flex-2 mt-1">
         <h2 class="card-title truncate">{{ inputData?.title }}</h2>
@@ -22,21 +19,15 @@
     <div class="flex">
       <div class="card-actions flex-[1.5]">
         <div class="pt-0">
-          <div
-            class="grid h-30 card bg-base-300 rounded-box place-items-center p-3"
-          >
+          <div class="grid h-30 card bg-base-300 rounded-box place-items-center p-3">
             <div class="grid grid-flow-col gap-5 text-center auto-cols-max">
-              <div
-                class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content text-2xl"
-              >
+              <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content text-2xl">
                 <span class="font-mono text-3xl">
                   <span>Due</span>
                 </span>
                 In
               </div>
-              <div
-                class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content"
-              >
+              <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
                 <span class="countdown font-mono text-5xl">
                   <span [style.--value]="daysRemaining"></span>
                 </span>
@@ -47,173 +38,95 @@
         </div>
       </div>
       <div class="card-actions flex-1 items-end justify-center">
-        <div
-          class="radial-progress"
-          [style.--value]="inputData?.progress"
-          style="
+        <div class="radial-progress" [style.--value]="inputData?.progress" style="
             --size: 7rem;
             --thickness: 0.8rem;
             color: #023754;
             font-weight: 900;
             font-size: x-large;
             background-color: rgb(179, 198, 215);
-          "
-          role="progressbar"
-        >
+          " role="progressbar">
           {{ inputData?.progress }}%
         </div>
       </div>
     </div>
     <div class="flex mt-3">
       <div class="flex-1">
-        <span
-          class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-900"
+        <span class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-900"
           [ngClass]="{
           'bg-red-100 text-red-900': inputData?.progress === 0,
           'bg-emerald-100 text-emerald-900': inputData?.progress === 100,
-        }"
-        >
-          <ng-container
-            *ngIf="inputData?.progress !== 0 && inputData?.progress !== 100"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="-ms-1 me-1.5 h-4 w-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z"
-              />
+        }">
+          <ng-container *ngIf="inputData?.progress !== 0 && inputData?.progress !== 100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="-ms-1 me-1.5 h-4 w-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z" />
             </svg>
           </ng-container>
           <ng-container *ngIf="inputData?.progress === 100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="-ms-1 me-1.5 h-4 w-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="-ms-1 me-1.5 h-4 w-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </ng-container>
           <ng-container *ngIf="inputData?.progress === 0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="-ms-1 me-1.5 h-4 w-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="-ms-1 me-1.5 h-4 w-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
             </svg>
           </ng-container>
 
           <p class="whitespace-nowrap text-md">
             {{
-              inputData?.progress === 100
-                ? "Done"
-                : inputData?.progress === 0
-                ? "Not Started"
-                : "In Progress"
+            inputData?.progress === 100
+            ? "Done"
+            : inputData?.progress === 0
+            ? "Not Started"
+            : "In Progress"
             }}
           </p>
         </span>
       </div>
       <div class="d-flex justify-content-center align-items-center">
-        <a
-          class="inline-block rounded-full border border-indigo-600 p-1.5 mx-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 cursor-pointer"
-        >
+        <a class="inline-block rounded-full border border-indigo-600 p-1.5 mx-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 cursor-pointer"
+          (click)="showUpdatePopup()" onclick="view_task_modal.showModal()">
           <span class="sr-only"> View </span>
-          <svg
-            class="size-5 rtl:rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-6 h-6"
-            >
+          <svg class="size-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
               <path
-                d="M6 3a3 3 0 0 0-3 3v1.5a.75.75 0 0 0 1.5 0V6A1.5 1.5 0 0 1 6 4.5h1.5a.75.75 0 0 0 0-1.5H6ZM16.5 3a.75.75 0 0 0 0 1.5H18A1.5 1.5 0 0 1 19.5 6v1.5a.75.75 0 0 0 1.5 0V6a3 3 0 0 0-3-3h-1.5ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM4.5 16.5a.75.75 0 0 0-1.5 0V18a3 3 0 0 0 3 3h1.5a.75.75 0 0 0 0-1.5H6A1.5 1.5 0 0 1 4.5 18v-1.5ZM21 16.5a.75.75 0 0 0-1.5 0V18a1.5 1.5 0 0 1-1.5 1.5h-1.5a.75.75 0 0 0 0 1.5H18a3 3 0 0 0 3-3v-1.5Z"
-              />
+                d="M6 3a3 3 0 0 0-3 3v1.5a.75.75 0 0 0 1.5 0V6A1.5 1.5 0 0 1 6 4.5h1.5a.75.75 0 0 0 0-1.5H6ZM16.5 3a.75.75 0 0 0 0 1.5H18A1.5 1.5 0 0 1 19.5 6v1.5a.75.75 0 0 0 1.5 0V6a3 3 0 0 0-3-3h-1.5ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM4.5 16.5a.75.75 0 0 0-1.5 0V18a3 3 0 0 0 3 3h1.5a.75.75 0 0 0 0-1.5H6A1.5 1.5 0 0 1 4.5 18v-1.5ZM21 16.5a.75.75 0 0 0-1.5 0V18a1.5 1.5 0 0 1-1.5 1.5h-1.5a.75.75 0 0 0 0 1.5H18a3 3 0 0 0 3-3v-1.5Z" />
             </svg>
           </svg>
         </a>
-        <a
-          class="inline-block rounded-full border border-indigo-600 p-1.5 mr-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 cursor-pointer"
-          (click)="showUpdatePopup()"
-          onclick="update_task_modal.showModal()"
-        >
+        <a class="inline-block rounded-full border border-indigo-600 p-1.5 mr-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 cursor-pointer"
+          (click)="showUpdatePopup()" onclick="update_task_modal.showModal()">
           <span class="sr-only"> Edit </span>
-          <svg
-            class="size-5 rtl:rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-6 h-6"
-            >
+          <svg class="size-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
               <path
-                d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z"
-              />
+                d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
               <path
-                d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z"
-              />
+                d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
             </svg>
           </svg>
         </a>
-        <a
-          class="inline-block rounded-full border border-indigo-600 p-1.5 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 cursor-pointer"
-          (click)="openModal()"
-        >
+        <a class="inline-block rounded-full border border-indigo-600 p-1.5 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 cursor-pointer"
+          (click)="openModal()">
           <span class="sr-only"> Delete </span>
 
-          <svg
-            class="size-5 rtl:rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-6 h-6"
-            >
+          <svg class="size-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
               <path
-                d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z"
-              />
-              <path
-                fill-rule="evenodd"
+                d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
+              <path fill-rule="evenodd"
                 d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087Zm6.133 2.845a.75.75 0 0 1 1.06 0l1.72 1.72 1.72-1.72a.75.75 0 1 1 1.06 1.06l-1.72 1.72 1.72 1.72a.75.75 0 1 1-1.06 1.06L12 15.685l-1.72 1.72a.75.75 0 1 1-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 0 1 0-1.06Z"
-                clip-rule="evenodd"
-              />
+                clip-rule="evenodd" />
             </svg>
           </svg>
         </a>
