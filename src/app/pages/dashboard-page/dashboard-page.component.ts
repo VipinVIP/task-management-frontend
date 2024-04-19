@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';

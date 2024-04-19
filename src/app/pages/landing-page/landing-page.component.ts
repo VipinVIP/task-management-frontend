@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LoginComponent } from '../../components/login/login.component';
 import { DashboardPageComponent } from '../dashboard-page/dashboard-page.component';
-import { TaskFormComponent } from '../../components/task-form/task-form.component';
-import { FormSubmissionResponse } from '../../types';
 
 @Component({
   selector: 'app-landing-page',
