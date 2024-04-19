@@ -65,22 +65,21 @@ export class DashboardPageComponent implements OnInit {
   filteredTasks: Task[] = [];
   taskId: string = '';
   showModal: boolean = false;
-  showAlert: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     console.log('token', token);
-    this.taskService.getTasks(token).subscribe(
-      (data: any) => {
+    this.taskService.getTasks(token).subscribe({
+      next: (data: any) => {
         this.tasks = data;
         this.originalTasks = data;
         this.filteredTasks = data;
       },
-      (error: any) => {
+      error: (error: any) => {
         console.log('Error fetching messages', error);
-      }
-    );
+      },
+    });
   }
 
   actionSuccess = false;
@@ -127,11 +126,12 @@ export class DashboardPageComponent implements OnInit {
         const data = this.tasks.filter((item) => {
           return item.id !== parseInt(this.taskId);
         });
-        this.tasks = data;
+        this.originalTasks = data;
         this.showModal = false;
-        this.showAlert = true;
+        this.actionSuccess = true;
+        this.actionMessage = 'Task successfully deleted';
         setTimeout(() => {
-          this.showAlert = false;
+          this.actionSuccess = false;
         }, 2000);
       });
     }
