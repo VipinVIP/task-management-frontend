@@ -119,12 +119,13 @@ export class DashboardPageComponent implements OnInit {
       this.taskId = id;
     }
   }
-
+  deletedCards: string[] = [];
   deleteCard(id: string | null) {
     if (id !== null) {
+      this.deletedCards.push(id);
       this.taskService.deleteTask(id).subscribe((res) => {
         const data = this.tasks.filter((item) => {
-          return item.id !== parseInt(this.taskId);
+          return !this.deletedCards.includes(item.id.toString());
         });
         this.originalTasks = data;
         this.showModal = false;
