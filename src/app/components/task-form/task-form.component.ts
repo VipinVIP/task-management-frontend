@@ -58,7 +58,7 @@ export class TaskFormComponent {
             });
             this.status.emit({
               status: 'success',
-              message: 'Task Addes successfully',
+              message: 'Task Added successfully',
             });
           },
           error: (error) => {

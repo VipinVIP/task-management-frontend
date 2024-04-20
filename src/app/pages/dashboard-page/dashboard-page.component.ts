@@ -124,10 +124,11 @@ export class DashboardPageComponent implements OnInit {
     if (id !== null) {
       this.deletedCards.push(id);
       this.taskService.deleteTask(id).subscribe((res) => {
-        const data = this.tasks.filter((item) => {
+        this.tasks = this.tasks.filter((item) => {
           return !this.deletedCards.includes(item.id.toString());
         });
-        this.originalTasks = data;
+        this.originalTasks = this.tasks;
+        this.filteredTasks = this.tasks;
         this.showModal = false;
         this.actionSuccess = true;
         this.actionMessage = 'Task successfully deleted';
