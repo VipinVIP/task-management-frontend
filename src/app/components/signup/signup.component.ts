@@ -1,23 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
-  providers:[AuthenticationService],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  providers: [AuthenticationService],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
 })
 export class SignupComponent {
   signupForm!: FormGroup;
   submitted = false;
   common = '';
   registered = false;
-  wrongPassword=false;
+  wrongPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +40,7 @@ export class SignupComponent {
           ),
         ],
       ],
-      confirmPassword : ['',[Validators.required]]
+      confirmPassword: ['', [Validators.required]],
     });
   }
 
@@ -44,47 +48,43 @@ export class SignupComponent {
     return this.signupForm.controls;
   }
 
-
   onSubmit() {
     this.submitted = true;
     if (this.signupForm.valid) {
-
-      const { email, password, userName, confirmPassword } = this.signupForm.value;
-      console.log(email, password, userName,confirmPassword);
-      if(password === confirmPassword)
-      {
-          const username = userName;
-          this.authenticationService
+      const { email, password, userName, confirmPassword } =
+        this.signupForm.value;
+      console.log(email, password, userName, confirmPassword);
+      if (password === confirmPassword) {
+        const username = userName;
+        this.authenticationService
           .userSignUp({ email, password, username })
           .subscribe(
             (data) => {
-              if (data.status='200') {
-                console.log("Successss");
+              if ((data.status = '200')) {
+                console.log('Successss');
                 setTimeout(() => {
                   this.router.navigate(['/login']);
                 }, 2000);
                 this.submitted = false;
-                this.registered=true;
+                this.registered = true;
               }
             },
             ({ error }) => {
               this.common = error.message;
               console.log(this.common);
-                setTimeout(() => {
-                  this.common='';
-                }, 2000);
-                this.submitted = false;
+              setTimeout(() => {
+                this.common = '';
+              }, 2000);
+              this.submitted = false;
             }
           );
-        }
-        else
-        {
-          this.common="Passwords do not match";
-          setTimeout(() => {
-            this.common='';
-          }, 2000);
-          this.submitted = false;
-        }
+      } else {
+        this.common = 'Passwords do not match';
+        setTimeout(() => {
+          this.common = '';
+        }, 2000);
+        this.submitted = false;
+      }
     }
   }
 }

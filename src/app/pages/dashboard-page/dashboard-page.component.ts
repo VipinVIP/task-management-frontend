@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
@@ -66,22 +65,21 @@ export class DashboardPageComponent implements OnInit {
   filteredTasks: Task[] = [];
   taskId: string = '';
   showModal: boolean = false;
-  showAlert: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     console.log('token', token);
-    this.taskService.getTasks(token).subscribe(
-      (data: any) => {
+    this.taskService.getTasks(token).subscribe({
+      next: (data: any) => {
         this.tasks = data;
         this.originalTasks = data;
         this.filteredTasks = data;
       },
-      (error: any) => {
+      error: (error: any) => {
         console.log('Error fetching messages', error);
-      }
-    );
+      },
+    });
   }
 
   actionSuccess = false;
@@ -121,18 +119,20 @@ export class DashboardPageComponent implements OnInit {
       this.taskId = id;
     }
   }
-
+  deletedCards: string[] = [];
   deleteCard(id: string | null) {
     if (id !== null) {
+      this.deletedCards.push(id);
       this.taskService.deleteTask(id).subscribe((res) => {
         const data = this.tasks.filter((item) => {
-          return item.id !== parseInt(this.taskId);
+          return !this.deletedCards.includes(item.id.toString());
         });
-        this.tasks = data;
+        this.originalTasks = data;
         this.showModal = false;
-        this.showAlert = true;
+        this.actionSuccess = true;
+        this.actionMessage = 'Task successfully deleted';
         setTimeout(() => {
-          this.showAlert = false;
+          this.actionSuccess = false;
         }, 2000);
       });
     }

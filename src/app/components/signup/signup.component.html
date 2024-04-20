@@ -5,15 +5,23 @@
         </div>
         <div class="card shadow-2xl bg-base-100">
             <div role="alert" class="alert alert-success" *ngIf="registered; else commonAlert">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 <span>You have successfully registered to the application</span>
-              </div>
-              <ng-template #commonAlert>
+            </div>
+            <ng-template #commonAlert>
                 <div role="alert" class="alert alert-error" *ngIf="common">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      <span>{{common}}</span>
-                    </div>
-              </ng-template>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{{common}}</span>
+                </div>
+            </ng-template>
 
             <form class="card-body" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div class="flex flex-wrap -mx-4">
@@ -21,58 +29,71 @@
                         <label class="label">
                             <span class="label-text">User Name</span>
                         </label>
-                        <input type="text" placeholder="userName" class="input input-bordered" required formControlName="userName"/>
+                        <input type="text" placeholder="userName" class="input input-bordered" required
+                            formControlName="userName" />
                         <div>
-                        <div class="text-red-600" *ngIf="f['userName'].errors && (f['userName'].touched || submitted)">
-                            <small class="text-danger" *ngIf="f['userName'].errors['required']">User Name is required</small>
+                            <div class="text-red-600"
+                                *ngIf="f['userName'].errors && (f['userName'].touched || submitted)">
+                                <small class="text-danger" *ngIf="f['userName'].errors['required']">User Name is
+                                    required</small>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="form-control w-full md:w-1/2 px-4">
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
-                        <input type="email" placeholder="email" class="input input-bordered" required formControlName="email"/>
+                        <input type="email" placeholder="email" class="input input-bordered" required
+                            formControlName="email" />
                         <div>
-                        <div class="text-red-600" *ngIf="f['email'].errors && (f['email'].touched || submitted)">
-                            <small class="text-danger" *ngIf="f['email'].errors['required']">Email is required</small>
-                            <small class="text-danger" *ngIf="f['email'].errors['email']">Invalid E-mail, Please enter correctly</small>
+                            <div class="text-red-600" *ngIf="f['email'].errors && (f['email'].touched || submitted)">
+                                <small class="text-danger" *ngIf="f['email'].errors['required']">Email is
+                                    required</small>
+                                <small class="text-danger" *ngIf="f['email'].errors['email']">Invalid E-mail, Please
+                                    enter correctly</small>
+                            </div>
                         </div>
-                      </div>
                     </div>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Password</span>
                     </label>
-                    <input type="password" placeholder="password" class="input input-bordered" formControlName="password" />
+                    <input type="password" placeholder="password" class="input input-bordered"
+                        formControlName="password" />
                     <div>
-                    <div class="text-red-600" *ngIf="f['password'].errors && (f['password'].touched || submitted)">
-                        <small class="text-danger" *ngIf="f['password'].errors['required']">Password is required</small>
-                        <small class="text-danger" *ngIf="f['password'].errors['pattern']">Password must contain minimum 6 letters and a combination of letters, numbers, and special characters</small>
+                        <div class="text-red-600" *ngIf="f['password'].errors && (f['password'].touched || submitted)">
+                            <small class="text-danger" *ngIf="f['password'].errors['required']">Password is
+                                required</small>
+                            <small class="text-danger" *ngIf="f['password'].errors['pattern']">Password must contain
+                                minimum 6 letters and a combination of letters, numbers, and special characters</small>
+                        </div>
                     </div>
-                  </div>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Confirm Password</span>
                     </label>
-                    <input type="password" placeholder="confirm password" class="input input-bordered" formControlName="confirmPassword" />
+                    <input type="password" placeholder="confirm password" class="input input-bordered"
+                        formControlName="confirmPassword" />
                     <div>
-                    <div class="text-red-600" *ngIf="f['confirmPassword'].errors && (f['confirmPassword'].touched || submitted)">
-                      <small class="text-danger" *ngIf="f['confirmPassword'].errors['required']">Confirm Password</small>
-                  </div>
-                </div>
+                        <div class="text-red-600"
+                            *ngIf="f['confirmPassword'].errors && (f['confirmPassword'].touched || submitted)">
+                            <small class="text-danger" *ngIf="f['confirmPassword'].errors['required']">Confirm
+                                Password</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-control mt-6">
                     <button class="btn btn-primary">SignUp</button>
                     <!-- {{signupForm.value | json}} -->
                 </div>
                 <label class="label" style="align-self: center;">
-                  <a href="#" class="label-text-alt link link-hover" style="flex: 1;">Already have an account?Login</a>
-              </label>
-              <!-- {{ signupForm.get('confirmPassword')?.errors | json }} -->
+                    <a routerLink="/login" class="label-text-alt link link-hover" style="flex: 1;">Already have an
+                        account?<span class="text-primary">Login!</span></a>
+                </label>
+                <!-- {{ signupForm.get('confirmPassword')?.errors | json }} -->
             </form>
         </div>
     </div>
-  </div>
+</div>

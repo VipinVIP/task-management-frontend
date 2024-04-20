@@ -19,6 +19,7 @@ import { dateNotLessThanCurrent } from '../../validators/dateValidators';
 })
 export class TaskFormComponent {
   @Input() taskData: any | null = null;
+  @Input() disabled: boolean = false;
   @Output() status = new EventEmitter<FormSubmissionResponse>();
   fb = inject(FormBuilder);
   taskService = inject(TaskService);
@@ -34,6 +35,9 @@ export class TaskFormComponent {
   }
   ngOnChanges() {
     if (this.taskData) {
+      if (this.disabled == true) {
+        this.taskForm.disable();
+      }
       this.taskData.dueDate = this.taskData.dueDate.split('T')[0];
       this.taskForm.patchValue(this.taskData);
     }
@@ -45,7 +49,13 @@ export class TaskFormComponent {
         this.taskService.addTask(task).subscribe({
           next: (resp) => {
             console.log(resp);
-            this.taskForm.reset();
+            this.taskForm.reset({
+              title: '',
+              description: '',
+              progress: 0,
+              priority: '',
+              dueDate: '',
+            });
             this.status.emit({
               status: 'success',
               message: 'Task Addes successfully',
