@@ -30,6 +30,7 @@ export class DashboardCardComponent implements OnInit {
   differenceInMillis: number | undefined;
   daysRemaining: number | undefined;
   isdarkMode: boolean = false;
+  value: number = 0;
 
   ngOnInit() {
     if (this.inputData) {
@@ -55,6 +56,15 @@ export class DashboardCardComponent implements OnInit {
         );
       }
     }
+    console.log(this.daysRemaining);
+    this.getAbsoluteValue();
+  }
+
+  getAbsoluteValue() {
+    if (this.daysRemaining !== undefined) {
+      this.value = Math.abs(this.daysRemaining);
+    }
+    return this.value;
   }
 
   truncateTextWithEllipsis(text: any): string {
