@@ -14,9 +14,6 @@ interface Task {
   progress: number;
   user_id: number;
 }
-
-const token = localStorage.getItem('access_token');
-
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
@@ -69,8 +66,7 @@ export class DashboardPageComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    console.log('token', token);
-    this.taskService.getTasks(token).subscribe({
+    this.taskService.getTasks().subscribe({
       next: (data: any) => {
         this.tasks = data;
         this.originalTasks = data;

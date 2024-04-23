@@ -7,7 +7,7 @@ export interface Task {
   title: string;
   description?: string;
   priority: 'Low' | 'Medium' | 'High';
-  dueDate: Date;
+  dueDate: string;
   progress: number;
   user_id: number;
 }
@@ -19,13 +19,13 @@ export class TaskService {
   constructor(private http: HttpClient) {}
   addTask(task: {
     title: string;
-    description: string;
+    description?: string;
     priority: string;
     dueDate: string;
   }): Observable<any> {
     return this.http.post<any>('add-task/', task);
   }
-  getTasks(token: any): Observable<Task> {
+  getTasks(): Observable<Task> {
     return this.http.get<Task>('tasks/');
   }
 
@@ -33,10 +33,10 @@ export class TaskService {
     id: number,
     task: {
       title: string;
-      description: string;
+      description?: string;
       priority: string;
-      dueDate: string;
-      progress: string;
+      dueDate: string | Date;
+      progress: string | number;
     }
   ): Observable<any> {
     return this.http.put<any>(`tasks/${id}`, task);
