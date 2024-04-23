@@ -23,7 +23,7 @@
       <div class="card-actions flex-[1]">
         <div class="pt-0 mt-1">
           <div
-            *ngIf="daysRemaining !== undefined && daysRemaining > 0"
+            *ngIf="daysRemaining !== undefined && daysRemaining >= 0"
             class="grid h-24 card bg-base-300 rounded-box place-items-center p-2"
           >
             <div class="grid grid-flow-col gap-4 text-center auto-cols-max">
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div
-            *ngIf="daysRemaining !== undefined && daysRemaining <= 0"
+            *ngIf="daysRemaining !== undefined && daysRemaining < 0"
             class="grid h-20 card bg-base-300 rounded-box place-items-center p-3 mt-2"
           >
             <div
