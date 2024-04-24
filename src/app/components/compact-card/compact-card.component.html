@@ -1,0 +1,22 @@
+<div class="card card-compact card-bordered bg-base-100 shadow-xl px-3 py-2 rounded-md cursor-grab" draggable="true"
+    (dragstart)="drag($event)" [id]="task?.id">
+    <div class="text-md font-bold flex items-center gap-1">
+        @switch (task?.priority) {
+        @case ("Low") {
+        <div class="w-4 h-4 border-green-500 bg-green-500 bg-opacity-30 border-2 rounded-full"></div>
+        }
+        @case ("Medium") {
+        <div class="w-4 h-4 border-yellow-500 bg-yellow-500 bg-opacity-30 border-2 rounded-full"></div>
+        }
+        @case ("High"){
+        <div class="w-4 h-4 border-red-500 bg-red-500 bg-opacity-30 border-2 rounded-full"></div>
+        }
+        }
+        {{ task?.title }}
+    </div>
+    @if(task?.description){
+    <div class="text-sm truncate-p"> {{ task?.description }}</div>
+    }@else {
+    <div class="text-sm text-gray-500 truncate-p">No description provided.</div>
+    }
+</div>

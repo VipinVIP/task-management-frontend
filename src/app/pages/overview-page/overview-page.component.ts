@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Task, TaskService } from '../../services/task.service';
 import { CommonModule } from '@angular/common';
+import { CompactCardComponent } from '../../components/compact-card/compact-card.component';
 
 @Component({
   selector: 'app-overview-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CompactCardComponent],
   providers: [TaskService],
   templateUrl: './overview-page.component.html',
-  styleUrl: './overview-page.component.css',
 })
 export class OverviewPageComponent {
   constructor(private taskService: TaskService) {}
@@ -30,9 +30,9 @@ export class OverviewPageComponent {
     event.preventDefault();
   }
 
-  drag(event: any) {
-    event.dataTransfer.setData('text', event.target.id);
-  }
+  // drag(event: any) {
+  //   event.dataTransfer.setData('text', event.target.id);
+  // }
 
   drop(event: any, containerId: string) {
     event.preventDefault();
@@ -51,7 +51,6 @@ export class OverviewPageComponent {
         task.progress = 100;
         break;
     }
-    event.target.appendChild(document.getElementById(data));
     this.taskService.updateTask(data, task).subscribe({
       next: (resp) => {
         console.log(resp);
