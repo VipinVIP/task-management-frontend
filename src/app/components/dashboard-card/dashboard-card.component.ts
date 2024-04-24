@@ -67,17 +67,6 @@ export class DashboardCardComponent implements OnInit {
     return this.value;
   }
 
-  truncateTextWithEllipsis(text: any): string {
-    console.log('truncate');
-    if (text.length <= 70) {
-      console.log(text.length);
-      return text;
-    } else {
-      const truncatedText = text.substring(0, 70).trim();
-      return truncatedText + '...';
-    }
-  }
-
   openModal() {
     // this.showModal.emit();
     if (this.inputData) {
@@ -87,9 +76,5 @@ export class DashboardCardComponent implements OnInit {
 
   showUpdatePopup() {
     this.outputData.emit(this.inputData);
-  }
-
-  change() {
-    this.isdarkMode = true;
   }
 }
