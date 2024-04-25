@@ -1,0 +1,41 @@
+<div class="h-full bg-base-200 p-3 text-center">
+    <h1 class="font-bold text-3xl w-full mb-8 mt-2 font-sans">TASK OVERVIEW</h1>
+    <div class="flex h-[28rem] gap-2 justify-center">
+        <div class="container min-w-[19rem] max-w-[19rem]">
+            <div class="font-bold py-3 px-3 text-lg bg-base-300 rounded-t-xl">
+                Not started
+            </div>
+            <div class=" flex flex-col gap-2 p-1 border border-base-300 h-[22rem] overflow-y-auto" id="not-started"
+                (drop)="drop($event, 'not-started')" (dragover)="allowDrop($event)">
+                @for(task of tasks;track $index){
+                <app-compact-card *ngIf="task.progress==0" [task]="task" />
+                }
+            </div>
+        </div>
+        <div class="container min-w-[19rem] max-w-[19rem]">
+            <div class="font-bold py-3 px-3 text-lg bg-base-300 rounded-t-xl">
+                In Progress
+            </div>
+            <div class=" flex flex-col gap-2 p-1 border border-base-300 h-[22rem] overflow-y-auto" id="in-progress"
+                (drop)="drop($event, 'in-progress')" (dragover)="allowDrop($event)">
+                @for(task of tasks;track $index){
+                <app-compact-card *ngIf="task.progress>0 && task.progress < 100" [task]="task" />
+
+                }
+
+            </div>
+        </div>
+        <div class="container min-w-[19rem] max-w-[19rem]">
+            <div class="font-bold py-3 px-3 text-lg bg-base-300 rounded-t-xl">
+                Done
+            </div>
+            <div class=" flex flex-col gap-2 p-1 border border-base-300 h-[22rem] overflow-y-auto" id="done"
+                (drop)="drop($event, 'done')" (dragover)="allowDrop($event)">
+                @for(task of tasks;track $index){
+                <app-compact-card *ngIf="task.progress==100" [task]="task" />
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
