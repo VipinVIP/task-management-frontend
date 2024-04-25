@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Task, TaskService } from '../../services/task.service';
+import { Component, OnInit } from '@angular/core';
+import { TaskService } from '../../services/task.service';
 import { CommonModule } from '@angular/common';
 import { CompactCardComponent } from '../../components/compact-card/compact-card.component';
+import { Task } from '../../types';
 
 @Component({
   selector: 'app-overview-page',
@@ -10,34 +11,30 @@ import { CompactCardComponent } from '../../components/compact-card/compact-card
   providers: [TaskService],
   templateUrl: './overview-page.component.html',
 })
-export class OverviewPageComponent {
+export class OverviewPageComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   tasks: Task[] = [];
   ngOnInit(): void {
     this.taskService.getTasks().subscribe({
-      next: (data: any) => {
+      next: (data: Task[]) => {
         this.tasks = data;
         console.log(this.tasks);
       },
-      error: (error: any) => {
+      error: (error: object) => {
         console.log('Error fetching messages', error);
       },
     });
   }
 
-  allowDrop(event: any) {
+  allowDrop(event: DragEvent) {
     event.preventDefault();
   }
 
-  // drag(event: any) {
-  //   event.dataTransfer.setData('text', event.target.id);
-  // }
-
-  drop(event: any, containerId: string) {
+  drop(event: DragEvent, containerId: string) {
     event.preventDefault();
-    const data = event.dataTransfer.getData('text');
-    let task = this.tasks.filter((item) => item.id == data)[0];
+    const data = event.dataTransfer?.getData('text');
+    const task = this.tasks.filter((item) => item.id == data)[0];
     task.dueDate = task.dueDate.split('T')[0];
 
     switch (containerId) {

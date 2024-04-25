@@ -3,4 +3,14 @@ type FormSubmissionResponse = {
   message: string;
 };
 
-export {FormSubmissionResponse}
+type Task = {
+  id: string;
+  title: string;
+  description?: string;
+  priority: 'Low' | 'Medium' | 'High';
+  dueDate: string;
+  progress: number;
+  user_id: number;
+};
+
+export { FormSubmissionResponse, Task };

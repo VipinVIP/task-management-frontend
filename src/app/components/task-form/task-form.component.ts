@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  inject,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
-import { FormSubmissionResponse } from '../../types';
+import { FormSubmissionResponse, Task } from '../../types';
 import { dateNotLessThanCurrent } from '../../validators/dateValidators';
 
 @Component({
@@ -17,8 +24,8 @@ import { dateNotLessThanCurrent } from '../../validators/dateValidators';
   providers: [TaskService],
   templateUrl: './task-form.component.html',
 })
-export class TaskFormComponent {
-  @Input() taskData: any | null = null;
+export class TaskFormComponent implements OnChanges {
+  @Input() taskData: Task | null = null;
   @Input() disabled: boolean = false;
   @Output() status = new EventEmitter<FormSubmissionResponse>();
   fb = inject(FormBuilder);

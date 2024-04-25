@@ -1,16 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TaskService } from '../../services/task.service';
+import { Task } from '../../types';
 
-interface Task {
-  id: number;
-  title: string;
-  description?: string;
-  priority: 'Low' | 'Medium' | 'High';
-  dueDate: Date;
-  progress: number;
-  user_id: number;
-}
 @Component({
   selector: 'app-dashboard-card',
   standalone: true,
@@ -40,11 +32,9 @@ export class DashboardCardComponent implements OnInit {
         } catch (error) {
           console.warn('Invalid date format in dueDate:', error);
         }
-      } else if (this.inputData.dueDate instanceof Date) {
-        this.due = this.inputData.dueDate;
       } else {
         console.warn(
-          'dueDate is not a valid Date or string:',
+          'dueDate is not a valid or string:',
           this.inputData.dueDate
         );
       }
@@ -67,21 +57,10 @@ export class DashboardCardComponent implements OnInit {
     return this.value;
   }
 
-  truncateTextWithEllipsis(text: any): string {
-    console.log('truncate');
-    if (text.length <= 70) {
-      console.log(text.length);
-      return text;
-    } else {
-      const truncatedText = text.substring(0, 70).trim();
-      return truncatedText + '...';
-    }
-  }
-
   openModal() {
     // this.showModal.emit();
     if (this.inputData) {
-      this.outputDataId.emit(this.inputData.id.toString());
+      this.outputDataId.emit(this.inputData.id?.toString());
     }
   }
 
