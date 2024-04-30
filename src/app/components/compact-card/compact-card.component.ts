@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../services/task.service';
-
+import { Task } from '../../types';
 @Component({
   selector: 'app-compact-card',
   standalone: true,
@@ -11,7 +10,8 @@ import { Task } from '../../services/task.service';
 export class CompactCardComponent {
   @Input() task: Task | null = null;
 
-  drag(event: any) {
-    event.dataTransfer.setData('text', event.target.id);
+  drag(event: DragEvent) {
+    const card = event.target as HTMLDivElement;
+    event.dataTransfer?.setData('text', card?.id);
   }
 }

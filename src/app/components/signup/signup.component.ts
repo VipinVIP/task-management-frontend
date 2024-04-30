@@ -58,26 +58,23 @@ export class SignupComponent {
         const username = userName;
         this.authenticationService
           .userSignUp({ email, password, username })
-          .subscribe(
-            (data) => {
-              if ((data.status = '200')) {
-                console.log('Successss');
-                setTimeout(() => {
-                  this.router.navigate(['/login']);
-                }, 2000);
-                this.submitted = false;
-                this.registered = true;
-              }
+          .subscribe({
+            next: () => {
+              setTimeout(() => {
+                this.router.navigate(['/login']);
+              }, 2000);
+              this.submitted = false;
+              this.registered = true;
             },
-            ({ error }) => {
+            error: (error) => {
               this.common = error.message;
               console.log(this.common);
               setTimeout(() => {
                 this.common = '';
               }, 2000);
               this.submitted = false;
-            }
-          );
+            },
+          });
       } else {
         this.common = 'Passwords do not match';
         setTimeout(() => {

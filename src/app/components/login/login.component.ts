@@ -47,25 +47,25 @@ export class LoginComponent {
 
   onSubmit() {
     this.submitted = true;
+
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      this.authenticationService.userLogin({ email, password }).subscribe(
-        (data) => {
-          if ((data.status = '200')) {
-            localStorage.setItem('access_token', data.token);
-            this.router.navigate(['/']);
-            console.log('access_token', data.token);
-            console.log(data);
-          }
+
+      this.authenticationService.userLogin({ email, password }).subscribe({
+        next: (data) => {
+          localStorage.setItem('access_token', data.token);
+          this.router.navigate(['/']);
+          console.log('access_token', data.token);
+          console.log(data);
         },
-        ({ error }) => {
+        error: (error) => {
           this.common = error.message;
           console.log(error.message);
           setTimeout(() => {
             this.common = '';
           }, 2000);
-        }
-      );
+        },
+      });
     }
   }
 }

@@ -2,18 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
-import { FormSubmissionResponse } from '../../types';
+import { FormSubmissionResponse, Task } from '../../types';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
-
-interface Task {
-  id: number;
-  title: string;
-  description?: string;
-  priority: 'Low' | 'Medium' | 'High';
-  dueDate: Date;
-  progress: number;
-  user_id: number;
-}
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
@@ -54,7 +44,7 @@ export class DashboardPageComponent implements OnInit {
     this.searchItems('');
   }
   dataToEdit: Task | null = null;
-  showUpdateForm(taskData: any) {
+  showUpdateForm(taskData: Task) {
     console.log(taskData);
     this.dataToEdit = taskData;
   }
@@ -67,12 +57,12 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe({
-      next: (data: any) => {
+      next: (data: Task[]) => {
         this.tasks = data;
         this.originalTasks = data;
         this.filteredTasks = data;
       },
-      error: (error: any) => {
+      error: (error: object) => {
         console.log('Error fetching messages', error);
       },
     });
@@ -119,18 +109,23 @@ export class DashboardPageComponent implements OnInit {
   deleteCard(id: string | null) {
     if (id !== null) {
       this.deletedCards.push(id);
-      this.taskService.deleteTask(id).subscribe((res) => {
-        this.tasks = this.tasks.filter((item) => {
-          return !this.deletedCards.includes(item.id.toString());
-        });
-        this.originalTasks = this.tasks;
-        this.filteredTasks = this.tasks;
-        this.showModal = false;
-        this.actionSuccess = true;
-        this.actionMessage = 'Task successfully deleted';
-        setTimeout(() => {
-          this.actionSuccess = false;
-        }, 2000);
+      this.taskService.deleteTask(id).subscribe({
+        next: () => {
+          this.tasks = this.tasks.filter((item) => {
+            return !this.deletedCards.includes(item.id?.toString());
+          });
+          this.originalTasks = this.tasks;
+          this.filteredTasks = this.tasks;
+          this.showModal = false;
+          this.actionSuccess = true;
+          this.actionMessage = 'Task successfully deleted';
+          setTimeout(() => {
+            this.actionSuccess = false;
+          }, 2000);
+        },
+        error: (error: object) => {
+          console.log(error);
+        },
       });
     }
   }
