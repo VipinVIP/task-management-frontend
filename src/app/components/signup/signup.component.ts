@@ -59,15 +59,12 @@ export class SignupComponent {
         this.authenticationService
           .userSignUp({ email, password, username })
           .subscribe({
-            next: (data) => {
-              if (data.status == '200') {
-                console.log('Successss');
-                setTimeout(() => {
-                  this.router.navigate(['/login']);
-                }, 2000);
-                this.submitted = false;
-                this.registered = true;
-              }
+            next: () => {
+              setTimeout(() => {
+                this.router.navigate(['/login']);
+              }, 2000);
+              this.submitted = false;
+              this.registered = true;
             },
             error: (error) => {
               this.common = error.message;

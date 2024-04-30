@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthResponse, User } from '../types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthenticationService {
-
-  constructor(private http:HttpClient) { }
-  userSignUp(user:{username : string;email : string;password : string;}):  Observable<{token:string;auth:boolean;status:string}>{
-    return this.http.post<{token:string;auth:boolean;status:string}>('signup/',user)
+  constructor(private http: HttpClient) {}
+  userSignUp(user: User): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('signup/', user);
   }
-    userLogin(user:{email : string;password : string}):  Observable<{token:string;auth:boolean;status:string}>{
-      return this.http.post<{token:string;auth:boolean;status:string}>('login/',user)
-    }
+  userLogin(user: User): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('login/', user);
+  }
 }
