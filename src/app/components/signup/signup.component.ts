@@ -59,9 +59,10 @@ export class SignupComponent {
         this.authenticationService
           .userSignUp({ email, password, username })
           .subscribe({
-            next: () => {
+            next: (data) => {
               setTimeout(() => {
-                this.router.navigate(['/login']);
+                localStorage.setItem('access_token', data.token);
+                this.router.navigate(['/']);
               }, 2000);
               this.submitted = false;
               this.registered = true;
