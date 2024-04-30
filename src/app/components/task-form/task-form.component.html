@@ -1,4 +1,8 @@
-<form [formGroup]="taskForm" class="space-y-4 max-w-1/2 my-3" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="taskForm"
+  class="space-y-4 max-w-1/2 my-3"
+  (ngSubmit)="onSubmit()"
+>
   <div class="prose p-2 text-center">
     @if(taskData==null){
     <h1>Add task</h1>
@@ -10,58 +14,117 @@
   </div>
   <div class="form-control">
     <label for="title" class="label">Title:</label>
-    <input id="title" type="text" formControlName="title" class="input input-bordered" placeholder="Enter title">
-    <div *ngIf="taskForm.get('title')?.errors?.['required'] && taskForm.get('title')?.touched" class="text-red-500">
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      class="input input-bordered"
+      placeholder="Enter title"
+    />
+    <div
+      *ngIf="taskForm.get('title')?.errors?.['required'] && taskForm.get('title')?.touched"
+      class="text-red-500"
+    >
       Title is required
     </div>
-    <div *ngIf="taskForm.get('title')?.errors?.['minlength'] && taskForm.get('title')?.touched" class="text-red-500">
+    <div
+      *ngIf="taskForm.get('title')?.errors?.['minlength'] && taskForm.get('title')?.touched"
+      class="text-red-500"
+    >
       Title should be atleast 5 characters
     </div>
   </div>
   <div class="form-control">
     <label for="description" class="label">Description:</label>
-    <textarea id="description" formControlName="description" class="textarea textarea-bordered"
-      placeholder="Enter description"></textarea>
+    <textarea
+      id="description"
+      formControlName="description"
+      class="textarea textarea-bordered"
+      placeholder="Enter description"
+    ></textarea>
   </div>
   <div class="flex gap-4">
     <div class="form-control w-1/2">
       <label for="priority" class="label">Priority:</label>
-      <select id="priority" formControlName="priority" class="select select-bordered">
+      <select
+        id="priority"
+        formControlName="priority"
+        class="select select-bordered"
+      >
         <option value="" disabled selected>Select Priority</option>
         <option value="Low">Low</option>
         <option value="Medium">Medium</option>
         <option value="High">High</option>
       </select>
-      <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched" class="text-red-500">Priority
-        is required</div>
+      <div
+        *ngIf="
+          taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched
+        "
+        class="text-red-500"
+      >
+        Priority is required
+      </div>
     </div>
     <div class="form-control w-1/2">
       <label for="dueDate" class="label">Due Date:</label>
-      <input id="dueDate" type="date" formControlName="dueDate" class="input input-bordered">
-      <div *ngIf="taskForm.get('dueDate')?.errors?.['required'] && taskForm.get('dueDate')?.touched"
-        class="text-red-500">Due Date is
-        required</div>
-      <div *ngIf="taskForm.get('dueDate')?.errors?.['dateNotLessThanCurrent']" class="text-red-500">Due Date should be
-        greater than current day</div>
+      <input
+        id="dueDate"
+        type="date"
+        formControlName="dueDate"
+        class="input input-bordered"
+      />
+      <div
+        *ngIf="taskForm.get('dueDate')?.errors?.['required'] && taskForm.get('dueDate')?.touched"
+        class="text-red-500"
+      >
+        Due Date is required
+      </div>
+      <div
+        *ngIf="taskForm.get('dueDate')?.errors?.['dateNotLessThanCurrent']"
+        class="text-red-500"
+      >
+        Due Date should be greater than current day
+      </div>
     </div>
   </div>
   @if(taskData!==null){
   <div class="form-control">
-    <label for="progress" class="label">Progress</label>
-    <input id="progress" type="number" min="0" max="100" formControlName="progress" class="input input-bordered">
-    <div *ngIf="taskForm.get('progress')?.invalid && taskForm.get('progress')?.touched" class="text-red-500 text-xs">
-      Progress is required</div>
+    <label for="progress" class="label">Progress (Out of 100)</label>
+    <input
+      id="progress"
+      type="number"
+      min="0"
+      max="100"
+      formControlName="progress"
+      class="input input-bordered"
+    />
+    <div
+      *ngIf="
+        taskForm.get('progress')?.invalid && taskForm.get('progress')?.touched
+      "
+      class="text-red-500 text-xs"
+    >
+      Progress is required and should be between 0 and 100.
+    </div>
   </div>
-  }
+  } @if( taskData!==null && disabled!=true) {
 
-  @if( taskData!==null && disabled!=true) {
-
-  <button type="submit" class="btn btn-primary btn-block" onclick="update_task_modal.close()">Update Task</button>
-  }
-  @else if(disabled!=true && taskForm.valid) {
-  <button type="submit" class="btn btn-primary btn-block" onclick="add_task_modal.close()">Add Task</button>
+  <button
+    type="submit"
+    class="btn btn-primary btn-block"
+    onclick="update_task_modal.close()"
+  >
+    Update Task
+  </button>
+  } @else if(disabled!=true && taskForm.valid) {
+  <button
+    type="submit"
+    class="btn btn-primary btn-block"
+    onclick="add_task_modal.close()"
+  >
+    Add Task
+  </button>
   }@else if (disabled!=true) {
   <button type="submit" class="btn btn-primary btn-block">Add Task</button>
   }
-
 </form>
